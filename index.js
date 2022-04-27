@@ -4,6 +4,7 @@ const cors = require('cors');
 const port = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Hello From my Smarty Smarty over Node!!')
@@ -36,6 +37,11 @@ app.get('/fruits', (req, res) => {
 
 app.get('/fruits/mango/fazle', (req, res) => {
     res.send('sour fazle flavour')
+});
+
+app.post('/user', (req, res) => {
+    console.log('request it is', req.body);
+    res.send("post method success")
 });
 
 app.listen(port, () => {
