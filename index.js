@@ -20,7 +20,14 @@ const users = [
     { id: 7, name: "srabonti mam", email: "srabonti@gmail.com", phone: '017888888888' },
 ]
 app.get('/users', (req, res) => {
-    res.send(users)
+    if (req.query.name) {
+        const search = req.query.name.toLowerCase();
+        const matched = users.filter(user => user.name.toLowerCase().includes(search));
+        res.send(matched);
+    } else {
+        res.send(users)
+    }
+
 });
 
 app.get('/user/:id', (req, res) => {
@@ -41,7 +48,10 @@ app.get('/fruits/mango/fazle', (req, res) => {
 
 app.post('/user', (req, res) => {
     console.log('request it is', req.body);
-    res.send("post method success")
+    const user = req.body;
+    user.id = users.length + 1;
+    users.push(user)
+    res.send(user)
 });
 
 app.listen(port, () => {
