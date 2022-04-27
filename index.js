@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = process.env.PORT || 5000;
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello From my Smarty Smarty over Node!!')
@@ -25,6 +28,15 @@ app.get('/user/:id', (req, res) => {
     const user = users.find(suser => suser.id === id);
     res.send(user);
 })
+
+
+app.get('/fruits', (req, res) => {
+    res.send(['mango', 'apple', 'oranges'])
+});
+
+app.get('/fruits/mango/fazle', (req, res) => {
+    res.send('sour fazle flavour')
+});
 
 app.listen(port, () => {
     console.log("Listening to port", port);
